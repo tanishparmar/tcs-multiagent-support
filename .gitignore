@@ -1,0 +1,52 @@
+# Claude Code
+.claude/
+
+# Documents
+*.pdf
+*.docx
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Data / DB (auto-generated)
+data/db/
+data/policies/*.pdf
+
+# Vector DB
+*.chroma/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Streamlit
+.streamlit/secrets.toml

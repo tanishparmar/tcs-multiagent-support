@@ -1,0 +1,110 @@
+CUSTOMER SUPPORT POLICY & SERVICE LEVEL AGREEMENT (SLA)
+Effective Date: January 1, 2024
+
+1. OVERVIEW
+This document defines our customer support standards, response times, escalation paths, and available support channels.
+
+2. SUPPORT CHANNELS
+2.1 Live Chat
+- Availability: 24 hours a day, 7 days a week
+- Average first response: Under 2 minutes
+- Best for: Quick questions, order status, account access
+
+2.2 Email Support
+- Address: support@example.com
+- Availability: 24/7 (responses during business hours)
+- Response Time: Within 4 hours on business days; within 12 hours on weekends
+
+2.3 Phone Support
+- Number: 1-800-555-0100
+- Availability: Monday–Friday, 9:00 AM – 6:00 PM EST
+- Wait time: Typically under 5 minutes for Standard; under 2 minutes for Premium/Enterprise
+
+2.4 Self-Service Portal
+- URL: support.example.com
+- 24/7 access to order tracking, return initiation, FAQs, and knowledge base articles
+
+3. ACCOUNT TIERS & PRIORITY LEVELS
+3.1 Standard Accounts
+- Ticket Priority: Normal queue
+- Response SLA: 4–8 business hours
+- Phone support: Standard queue
+
+3.2 Premium Accounts
+- Ticket Priority: Elevated queue (30% faster)
+- Response SLA: 2–4 business hours
+- Phone support: Priority queue
+- Dedicated account manager for enterprise-level purchases
+
+3.3 Enterprise Accounts
+- Ticket Priority: Immediate review
+- Response SLA: 1 hour for critical issues; 2 hours for high; 4 hours for medium
+- Dedicated support hotline
+- Assigned Customer Success Manager
+- Monthly account review calls
+
+4. TICKET PRIORITY DEFINITIONS
+4.1 Critical
+- Product completely unusable or significant financial impact
+- System outage affecting business operations
+- Target resolution: 4 hours
+
+4.2 High
+- Core functionality impaired, significant inconvenience
+- Multiple customers affected by same issue
+- Target resolution: 8 hours
+
+4.3 Medium
+- Functionality degraded but workaround exists
+- Billing discrepancies
+- Target resolution: 24 hours
+
+4.4 Low
+- Minor issues, cosmetic problems, general enquiries
+- Feature requests and suggestions
+- Target resolution: 72 hours
+
+5. ESCALATION PROCESS
+5.1 Automatic Escalation
+Tickets are automatically escalated if:
+- No response from assigned agent within 2x the SLA timeframe
+- Customer marks ticket as "urgent" after initial response
+- Ticket receives a negative CSAT rating
+
+5.2 Manual Escalation
+Customers may request escalation at any time by:
+- Replying to the ticket with "ESCALATE"
+- Calling the support line and requesting a supervisor
+- Using the "Escalate" button on the self-service portal
+
+5.3 Escalation Levels
+Level 1: Frontline Support Agent
+Level 2: Senior Support Specialist (handles complex technical and billing issues)
+Level 3: Support Manager (handles unresolved Level 2 issues)
+Level 4: Director of Customer Experience (handles formal complaints and legal matters)
+
+6. FIRST CONTACT RESOLUTION (FCR) COMMITMENT
+We aim for a First Contact Resolution rate above 80%. If your issue is not resolved on first contact:
+- You will receive a follow-up within the SLA window
+- A dedicated agent will be assigned to your case
+- You will receive regular status updates every 4 hours for critical issues
+
+7. CUSTOMER SATISFACTION
+7.1 Post-Resolution Survey
+After every resolved ticket, you will receive a short CSAT (Customer Satisfaction) survey. Your feedback directly influences agent performance reviews and our service improvement plans.
+
+7.2 Quality Assurance
+All support interactions are subject to quality review. We monitor conversations to ensure accuracy, tone, and SLA adherence.
+
+8. PROHIBITED USES
+Support channels may not be used for:
+- Abuse, harassment, or threats toward support staff
+- Fraudulent claims or attempts to obtain goods deceptively
+- Spam or unsolicited promotions
+
+Violations may result in account suspension.
+
+9. CONTACT
+General: support@example.com
+Escalations: escalations@example.com
+Feedback: feedback@example.com
