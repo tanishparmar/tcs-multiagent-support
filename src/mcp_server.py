@@ -9,6 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from mcp.server.fastmcp import FastMCP
+from sqlalchemy import text
 from src.db import vector_db
 from src.db.sql_db import engine
 from langchain_community.utilities import SQLDatabase
@@ -24,17 +25,27 @@ mcp = FastMCP(
 _db = SQLDatabase(engine, include_tables=["customers", "support_tickets", "products", "orders"])
 
 
+def _mcp_query(sql: str, params: dict) -> str | None:
+    with engine.connect() as conn:
+        result = conn.execute(text(sql), params)
+        rows = result.fetchall()
+        keys = list(result.keys())
+    if not rows:
+        return None
+    return "\n".join(str(dict(zip(keys, row))) for row in rows)
+
+
 # ── SQL Tools ─────────────────────────────────────────────────────────────────
 
 @mcp.tool()
 def get_customer_profile(customer_name: str) -> str:
     """Retrieve a customer's profile (account type, email, location, loyalty points)
     by searching their name. Returns the best matching customer."""
-    sql = f"""
-        SELECT id, name, email, phone, account_type, location, join_date, loyalty_points
-        FROM customers WHERE name LIKE '%{customer_name}%' LIMIT 5
-    """
-    result = _db.run(sql)
+    result = _mcp_query(
+        "SELECT id, name, email, phone, account_type, location, join_date, loyalty_points "
+        "FROM customers WHERE name LIKE :p LIMIT 5",
+        {"p": f"%{customer_name}%"},
+    )
     return result or f"No customer found matching '{customer_name}'."
 
 
@@ -42,15 +53,13 @@ def get_customer_profile(customer_name: str) -> str:
 def get_support_tickets(customer_name: str) -> str:
     """Get all support tickets for a customer, including subject, status,
     priority, category, dates, and agent resolution notes."""
-    sql = f"""
-        SELECT t.id, t.subject, t.category, t.status, t.priority,
-               t.created_at, t.resolved_at, t.agent_notes
-        FROM support_tickets t
-        JOIN customers c ON t.customer_id = c.id
-        WHERE c.name LIKE '%{customer_name}%'
-        ORDER BY t.created_at DESC
-    """
-    result = _db.run(sql)
+    result = _mcp_query(
+        "SELECT t.id, t.subject, t.category, t.status, t.priority, "
+        "t.created_at, t.resolved_at, t.agent_notes "
+        "FROM support_tickets t JOIN customers c ON t.customer_id = c.id "
+        "WHERE c.name LIKE :p ORDER BY t.created_at DESC",
+        {"p": f"%{customer_name}%"},
+    )
     return result or f"No tickets found for '{customer_name}'."
 
 
@@ -58,16 +67,13 @@ def get_support_tickets(customer_name: str) -> str:
 def get_order_history(customer_name: str) -> str:
     """Get the order history for a customer, including product names,
     quantities, amounts, dates, and fulfilment status."""
-    sql = f"""
-        SELECT o.id, p.name AS product, o.quantity,
-               o.total_amount, o.order_date, o.status
-        FROM orders o
-        JOIN customers c ON o.customer_id = c.id
-        JOIN products p ON o.product_id = p.id
-        WHERE c.name LIKE '%{customer_name}%'
-        ORDER BY o.order_date DESC
-    """
-    result = _db.run(sql)
+    result = _mcp_query(
+        "SELECT o.id, p.name AS product, o.quantity, o.total_amount, o.order_date, o.status "
+        "FROM orders o JOIN customers c ON o.customer_id = c.id "
+        "JOIN products p ON o.product_id = p.id "
+        "WHERE c.name LIKE :p ORDER BY o.order_date DESC",
+        {"p": f"%{customer_name}%"},
+    )
     return result or f"No orders found for '{customer_name}'."
 
 
