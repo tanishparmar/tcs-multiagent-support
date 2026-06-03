@@ -24,6 +24,7 @@ from pydantic import BaseModel
 from src.config import config
 from src.tools.rag_tools import get_rag_tools
 from src.tools.sql_tools import get_sql_tools, get_db_schema
+from src.guardrails import validate_input, validate_output, check_rag_faithfulness, InputGuardrailError
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
@@ -225,6 +226,13 @@ def run_query(user_message: str) -> tuple[str, list[str], dict]:
     retrieval_scores for observability / evals.
     """
     log.info("run_query called: %s", user_message)
+
+    # ── Input guardrail ───────────────────────────────────────────────────────
+    try:
+        user_message = validate_input(user_message)
+    except InputGuardrailError as e:
+        return str(e), [], {"latency_ms": 0, "retrieval_scores": []}
+
     t0 = time.time()
     graph = get_graph()
     had_error = False
@@ -276,6 +284,16 @@ def run_query(user_message: str) -> tuple[str, list[str], dict]:
         log.warning("No answer found in any message.")
 
     retrieval_scores = _extract_retrieval_scores(messages)
+
+    # ── RAG faithfulness check ────────────────────────────────────────────────
+    if "rag_agent" in agent_trace:
+        retrieved_chunks = [m.content for m in messages if isinstance(m, ToolMessage)]
+        if not check_rag_faithfulness(answer, retrieved_chunks):
+            log.warning("RAG faithfulness check failed — answer may not be grounded in retrieved context.")
+            answer += "\n\n⚠️ _Note: Verify this answer against the source policy documents._"
+
+    # ── Output guardrail ──────────────────────────────────────────────────────
+    answer = validate_output(answer, user_message)
     meta = {"latency_ms": latency_ms, "retrieval_scores": retrieval_scores}
 
     return answer, agent_trace, meta
