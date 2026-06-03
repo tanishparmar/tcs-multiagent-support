@@ -1,9 +1,10 @@
 # Claude Code
 .claude/
 
-# Documents
-*.pdf
+# Documents (exclude root-level assessment docs, keep policy PDFs)
 *.docx
+/PreQualification*.pdf
+/rtk*.pdf
 
 # Virtual environment
 .venv/
@@ -28,7 +29,6 @@ build/
 
 # Data / DB (auto-generated)
 data/db/
-data/policies/*.pdf
 
 # Vector DB
 *.chroma/
