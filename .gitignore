@@ -1,5 +1,6 @@
 # Claude Code
 .claude/
+CLAUDE.md
 
 # Documents (exclude root-level assessment docs, keep policy PDFs)
 *.docx
